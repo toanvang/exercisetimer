@@ -143,7 +143,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             public void onClick(View view) {
 //                saveData();
                 Toast.makeText(workoutActivity.this,"Saved To History",Toast.LENGTH_SHORT).show();
-//                openNewIntent();
+                openNewIntent();
                 startActivity(i);
             }
         });
@@ -163,16 +163,16 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
 //        prefConfig.writeInPref(getApplicationContext(), taskList);
 //    }
 
-//    public void openNewIntent(){
-//        i = new Intent(this, StartWorkOut.class);
-//        i.putExtra("totalET", totalExerciseTime.getText().toString());
-//        i.putExtra("totalRT", totalRestTime.getText().toString());
-//        i.putExtra("ET", ET);
-//        i.putExtra("RT", RT);
-//        i.putExtra("BT",BT);
-//        i.putExtra("set",number_of_set);
-//        i.putExtra("round",number_of_round);
-//    }
+    public void openNewIntent(){
+        i = new Intent(this, runTimer.class);
+        i.putExtra("totalET", totalExerciseTime.getText().toString());
+        i.putExtra("totalRT", totalRestTime.getText().toString());
+        i.putExtra("ET", ET);
+        i.putExtra("RT", RT);
+        i.putExtra("BT",BT);
+        i.putExtra("set",number_of_set);
+        i.putExtra("round",number_of_round);
+    }
 
     public void show(String type)
     {
@@ -195,7 +195,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                     exerciseTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
                     exercise_memory = newValue;
                     calculateTime();
-//                    openNewIntent();
+                    openNewIntent();
                 }
             });
         }
@@ -214,7 +214,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                     restTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
                     rest_memory = newValue;
                     calculateTime();
-//                    openNewIntent();
+                    openNewIntent();
                 }
             });
 
@@ -233,7 +233,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     round.setText(String.valueOf(newValue));
                     calculateTime();
-//                    openNewIntent();
+                    openNewIntent();
                 }
             });
 
@@ -253,7 +253,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                     set.setText(String.valueOf(newValue));
                     toggleBreakTime();
                     calculateTime();
-//                    openNewIntent();
+                    openNewIntent();
                 }
             });
         }
@@ -275,7 +275,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                     breakTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
                     break_memory = oldValue + 1;
                     calculateTime();
-//                    openNewIntent();
+                    openNewIntent();
                 }
             });
         }
@@ -312,6 +312,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             totalBT = (Integer.parseInt(bt[0]) * 60 + Integer.parseInt(bt[1])) * (number_of_set-1);
             totalRT = totalRT * number_of_set + totalBT;
         }
+
         // convert time to seconds
         // divide to get minute
         totalExerciseTime.setText(totalET / 60 + ":" + String.format("%02d" , totalET % 60));
