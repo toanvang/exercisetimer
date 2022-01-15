@@ -23,6 +23,8 @@ public class runTimer extends AppCompatActivity {
     private long lngrest;
     private long lngbreak;
     private long lng;
+    private boolean halfwayDone;
+    private boolean countdownStarted;
     private int ET;
     private int RT;
     private int BT;
@@ -41,6 +43,9 @@ public class runTimer extends AppCompatActivity {
         countdownButton = findViewById(R.id.countdown_button);
         homeButton = findViewById(R.id.home_button);
         exerciseStatus = findViewById(R.id.exercise_status);
+        halfwayDone = false;
+        countdownStarted = false;
+
 
         Intent data = getIntent();
         totalET = data.getStringExtra("totalET");
@@ -86,25 +91,16 @@ public class runTimer extends AppCompatActivity {
         }
     }
     public void startTimer(){
+
         countDownTimer = new CountDownTimer(timeLeftInMillisecounds, 1000) {
-            private final long totalTimeInMilliseconds = timeLeftInMillisecounds;
-            private boolean halfwayDone = false;
-            private boolean countdownStarted = false;
 
             @Override
             // l contains remaining time for countDownTimer
             // everytime pass in, update timeLeftInMillisecounds to timeLeft of this timer
             public void onTick(long l) {
                 timeLeftInMillisecounds = l;
+
                 updateTimer();
-//                if (timeLeftInMillisecounds <= 5000 && !countdownStarted && Setting.getInstance().isCountdownSoundEnabled()) {
-//                    countdownSoundPlayer.start();
-//                    countdownStarted = true;
-//                }
-//                if (timeLeftInMillisecounds <= totalTimeInMilliseconds / 2 && !halfwayDone && Setting.getInstance().isHalfwaySoundEnabled()) {
-//                    halfwaySoundPlayer.start();
-//                    halfwayDone = true;
-//                }
             }
 
             @Override
@@ -132,7 +128,40 @@ public class runTimer extends AppCompatActivity {
 
         countdownText.setText(timeLeftText);
 
+        final long totalTimeInMilliseconds = timeLeftInMillisecounds;
+
+
+        if (timeLeftInMillisecounds <= 6000 && !countdownStarted && Setting.getInstance().isCountdownSoundEnabled()) {
+            countdownSoundPlayer.start();
+            countdownStarted = true;
+        }
+
+        if (exerciseStatus.getText().equals("Exercise")) {
+            if (timeLeftInMillisecounds <= (lng * 1000 /2) +1000 && !halfwayDone && Setting.getInstance().isHalfwaySoundEnabled()) {
+                halfwayDone = true;
+                halfwaySoundPlayer.start();
+            }
+        }
+        else if (exerciseStatus.getText().equals("Rest")) {
+            if (timeLeftInMillisecounds <= (lngrest * 1000/2) +1000&& !halfwayDone && Setting.getInstance().isHalfwaySoundEnabled()) {
+                halfwayDone = true;
+                halfwaySoundPlayer.start();
+            }
+        }
+        if (exerciseStatus.getText().equals("Break")) {
+            if (timeLeftInMillisecounds <= (lngbreak * 1000/ 2)  +1000 && !halfwayDone && Setting.getInstance().isHalfwaySoundEnabled()) {
+                halfwayDone = true;
+                halfwaySoundPlayer.start();
+
+            }
+        }
+
+
+
+
         if(timeLeftInMillisecounds < 1000) {
+            halfwayDone = false;
+            countdownStarted = false;
             if (exerciseStatus.getText().equals("Exercise")) {
                 if (round > 1 ) {
                     round = round - 1;

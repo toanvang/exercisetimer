@@ -18,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.startworkout:
                 startActivity(new Intent(this, workoutActivity.class));
                 break;
+            case R.id.setting:
+                startActivity(new Intent(this, SettingActivity.class));
+                break;
         }
     }
 }
