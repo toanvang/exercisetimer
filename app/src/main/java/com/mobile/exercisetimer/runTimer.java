@@ -113,7 +113,7 @@ public class runTimer extends AppCompatActivity {
     }
     public void stopTimer(){
         countDownTimer.cancel();
-        countdownButton.setText("START");
+        countdownButton.setText("RESUME");
         timeRunning = false;
     }
     public void updateTimer(){

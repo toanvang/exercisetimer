@@ -18,9 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".workoutActivity" />
-        <activity android:name=".runTimer"/>
-        <activity android:name=".SettingActivity"/>
+        <activity android:configChanges="orientation|screenSize" android:name=".workoutActivity" />
+        <activity android:configChanges="orientation|screenSize" android:name=".runTimer"/>
+        <activity android:configChanges="orientation|screenSize" android:name=".SettingActivity"/>
 
     </application>
 

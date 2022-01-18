@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "745880559087",
+    "project_id": "exercise-timer-57c3c",
+    "storage_bucket": "exercise-timer-57c3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745880559087:android:b78aadf9399fa81e176a1a",
+        "android_client_info": {
+          "package_name": "com.mobile.exercisetimer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745880559087-hjv27n65rclaic2p49j65660gojf2te3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfuWSPqFP8qawhPvKBYBdYgsY7ebJ7UhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745880559087-hjv27n65rclaic2p49j65660gojf2te3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
