@@ -82,6 +82,11 @@ public class runTimer extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        countDownTimer.cancel();
+    }
 
     public void startStop(){
         if (timeRunning){
@@ -116,6 +121,9 @@ public class runTimer extends AppCompatActivity {
         countdownButton.setText("RESUME");
         timeRunning = false;
     }
+
+
+
     public void updateTimer(){
         int minutes = (int)timeLeftInMillisecounds / 60000; // divided 60 seconds
         int seconds = (int)timeLeftInMillisecounds % 60000 / 1000;

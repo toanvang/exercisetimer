@@ -30,6 +30,8 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private int exercise_memory = 17;
     private int rest_memory = 8;
     private int break_memory = 11;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
     private NumberPicker exerciseTimePicker;
     private NumberPicker restTimePicker;
     private NumberPicker roundPicker;
@@ -41,6 +43,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private TextView setText;
     private String totalTime;
     private ToolTipsManager toolTipsManager;
+    private SharedPreferences spGet;
     private Intent i;
     private Intent j;
     private int totalET;
@@ -92,6 +95,20 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         toolTipsManager = new ToolTipsManager(this);
         constraintLayout = findViewById(R.id.constraintlayout);
         starttimer = findViewById(R.id.starttimer);
+        spGet = getApplicationContext().getSharedPreferences("timerpicker", Context.MODE_PRIVATE);
+
+        round.setText(String.valueOf(spGet.getInt("round", 2)));
+        set.setText(String.valueOf(spGet.getInt("set", 1)));
+        exerciseTime.setText(spGet.getString("exercisetime", "3:00"));
+        restTime.setText(spGet.getString("resttime", "1:30"));
+        breakTime.setText(spGet.getString("breaktime", "2:00"));
+
+        sp = getSharedPreferences("timerpicker", Context.MODE_PRIVATE);
+        editor = sp.edit();
+        // need to put this here in case set > 1 because we memorize
+        toggleBreakTime();
+
+
 
         setText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +179,9 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
 //        }
 //        prefConfig.writeInPref(getApplicationContext(), taskList);
 //    }
+    public void saveData(){
+
+    }
 
     public void openNewIntent(){
         i = new Intent(this, runTimer.class);
@@ -185,15 +205,18 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             Time.initTime();
             exerciseTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             exerciseTimePicker.setMinValue(0);
+            //set display value create a list in the picker
             exerciseTimePicker.setDisplayedValues(Time.timeString());
-            exerciseTimePicker.setValue(exercise_memory);
-
+            // 17 here is the default index of time
+            exerciseTimePicker.setValue(spGet.getInt("exercisememory", 17));
 
             exerciseTimePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     exerciseTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
-                    exercise_memory = newValue;
+                    editor.putString("exercisetime",Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
+                    editor.putInt("exercisememory", newValue);
+                    editor.commit();
                     calculateTime();
                     openNewIntent();
                 }
@@ -207,12 +230,14 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             restTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             restTimePicker.setMinValue(0);
             restTimePicker.setDisplayedValues(Time.timeString());
-            restTimePicker.setValue(rest_memory);
+            restTimePicker.setValue(spGet.getInt("restmemory", 8));
             restTimePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     restTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
-                    rest_memory = newValue;
+                    editor.putString("resttime",Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
+                    editor.putInt("restmemory", newValue);
+                    editor.commit();
                     calculateTime();
                     openNewIntent();
                 }
@@ -227,11 +252,13 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             roundPicker.setMinValue(1);
             roundPicker.setMaxValue(10);
             // Remember previous value
-            roundPicker.setValue(Integer.parseInt(round.getText().toString()));
+            roundPicker.setValue(spGet.getInt("round", 2));
             roundPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     round.setText(String.valueOf(newValue));
+                    editor.putInt("round",newValue);
+                    editor.commit();
                     calculateTime();
                     openNewIntent();
                 }
@@ -246,11 +273,13 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             setPicker.setMinValue(1);
             setPicker.setMaxValue(10);
             // Remember previous value
-            setPicker.setValue(Integer.parseInt(set.getText().toString()));
+            setPicker.setValue(spGet.getInt("set", 1));
             setPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     set.setText(String.valueOf(newValue));
+                    editor.putInt("set",newValue);
+                    editor.commit();
                     toggleBreakTime();
                     calculateTime();
                     openNewIntent();
@@ -267,13 +296,17 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             breakTimePicker.setMinValue(0);
             breakTimePicker.setDisplayedValues(Time.timeString());
             // remember previous value
-            breakTimePicker.setValue(break_memory);
+            breakTimePicker.setValue(spGet.getInt("breakmemory", 11));
+
 
             breakTimePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     breakTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
-                    break_memory = oldValue + 1;
+//                    break_memory = oldValue + 1;
+                    editor.putString("breaktime",Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
+                    editor.putInt("breakmemory", newValue);
+                    editor.commit();
                     calculateTime();
                     openNewIntent();
                 }
