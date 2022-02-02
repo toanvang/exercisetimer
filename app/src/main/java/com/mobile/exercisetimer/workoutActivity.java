@@ -27,9 +27,6 @@ import java.util.List;
 
 public class workoutActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
     private ConstraintLayout constraintLayout;
-    private int exercise_memory = 17;
-    private int rest_memory = 8;
-    private int break_memory = 11;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private NumberPicker exerciseTimePicker;

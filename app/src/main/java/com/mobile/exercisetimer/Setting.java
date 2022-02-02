@@ -1,25 +1,29 @@
 package com.mobile.exercisetimer;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+
 public class Setting {
-    private boolean enableCountdownSound = false;
-    private boolean enableHalfwaySound = false;
+    private boolean enableCountdownSound = true;
+    private boolean enableHalfwaySound = true;
+
 
     private static Setting setting = new Setting();
 
     private Setting() {
     }
 
-    public void setEnableCountdownSound(boolean enabled) {
-        enableCountdownSound = enabled;
+    public void setEnableCountdownSound(boolean toggle) {
+        enableCountdownSound = toggle;
     }
 
-    public void setEnableHalfwaySound(boolean enabled) {
-        enableHalfwaySound = enabled;
+    public void setEnableHalfwaySound(boolean toggle) {
+        enableHalfwaySound = toggle;
     }
 
-    public boolean isCountdownSoundEnabled() {
-        return enableCountdownSound;
-    }
+    public boolean isCountdownSoundEnabled() { return enableCountdownSound; }
+
 
     public boolean isHalfwaySoundEnabled() {
         return enableHalfwaySound;
