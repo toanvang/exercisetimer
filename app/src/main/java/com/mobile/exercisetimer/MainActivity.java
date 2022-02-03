@@ -16,11 +16,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!, it works");
     }
     public void onClick(View view){
         switch (view.getId()) {
@@ -32,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.signup_activity:
                 startActivity(new Intent(this, SignupActivity.class));
+                break;
+            case R.id.login_button:
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
     }
