@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.login_button:
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
+            case R.id.summary:
+                startActivity(new Intent(this, HistoryActivity.class));
+                break;
         }
     }
 }

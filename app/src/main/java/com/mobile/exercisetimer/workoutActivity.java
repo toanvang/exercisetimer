@@ -1,5 +1,6 @@
 package com.mobile.exercisetimer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,15 +20,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class workoutActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
     private ConstraintLayout constraintLayout;
+    private DatabaseReference mDatabase;
+
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private NumberPicker exerciseTimePicker;
@@ -60,7 +70,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private Button starttimer;
     static Dialog d;
 
-//    List<ExampleItem> taskList;
+    List<ExampleItem> taskList;
 
     /**
      * round.getText().toString()
@@ -93,6 +103,8 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         constraintLayout = findViewById(R.id.constraintlayout);
         starttimer = findViewById(R.id.starttimer);
         spGet = getApplicationContext().getSharedPreferences("timerpicker", Context.MODE_PRIVATE);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
         round.setText(String.valueOf(spGet.getInt("round", 2)));
         set.setText(String.valueOf(spGet.getInt("set", 1)));
@@ -155,30 +167,24 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         starttimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                saveData();
-                Toast.makeText(workoutActivity.this,"Saved To History",Toast.LENGTH_SHORT).show();
+                saveData();
                 openNewIntent();
                 startActivity(i);
             }
         });
     }
-//    private void saveData(){
-//        String newExe = totalExerciseTime.getText().toString();
-//        String newRest = totalRestTime.getText().toString();
-//
-//        ExampleItem exampleItem = new ExampleItem(newExe, newRest);
-//        taskList.add(exampleItem);
-//        List<ExampleItem> taskList1 = prefConfig.readListFromPref(this);
-//        if (taskList1 != null){
-//            for (ExampleItem item : taskList1) {
-//                taskList.add(item);
-//            }
-//        }
-//        prefConfig.writeInPref(getApplicationContext(), taskList);
-//    }
-    public void saveData(){
+    private void saveData(){
+        if (User.getGlobalUser() != null) {
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+            Date date = new Date(System.currentTimeMillis());
+            mDatabase.child("users").child(User.getGlobalUser().getUserName()).child("historyDate").push().setValue(formatter.format(date));
+            mDatabase.child("users").child(User.getGlobalUser().getUserName()).child("historyExercise").push().setValue(totalExerciseTime.getText().toString());
+            mDatabase.child("users").child(User.getGlobalUser().getUserName()).child("historyRest").push().setValue(totalRestTime.getText().toString());
+            Toast.makeText(getApplicationContext(), "Workout Saved" , Toast.LENGTH_SHORT).show();
+        }
 
     }
+
 
     public void openNewIntent(){
         i = new Intent(this, runTimer.class);

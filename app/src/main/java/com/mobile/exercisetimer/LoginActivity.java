@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 User loadedUser = new User(user, password);
                 loadedUser.syncWith(userData);
                 User.setGlobalUser(loadedUser);
-                showToast("User " + user + " successfully login. Now you can see record and see history");
+                showToast("Hi " + user + ", Now you can save and see history");
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 Log.d("User", loadedUser.toString());
             }
