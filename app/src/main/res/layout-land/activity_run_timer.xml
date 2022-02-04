@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="311dp"
+        android:layout_marginTop="144dp"
         android:textSize="50sp"
         tools:text="10:00" />
 
@@ -22,8 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/countdown_text"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="#F44336"
-         />
+        android:backgroundTint="#F44336" />
 
     <Button
         android:id="@+id/home_button"
@@ -32,7 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/countdown_button"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="#2196F3"
         android:text="Home" />
 
     <TextView
@@ -41,8 +39,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="21dp"
         android:text="Exercise"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         android:textColor="#2196F3" />
 

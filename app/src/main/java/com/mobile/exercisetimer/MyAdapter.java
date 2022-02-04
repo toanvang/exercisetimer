@@ -35,8 +35,8 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.text1.setText("Date: " + data1.get(position));
-        holder.text2.setText("Exercise Time: " + data2.get(position));
-        holder.text3.setText("Rest Time: " + data3.get(position));
+        holder.text2.setText("Exercise Time: " + data2.get(position) + " minutes");
+        holder.text3.setText("Rest Time: " + data3.get(position) + " minutes");
     }
 
     @Override

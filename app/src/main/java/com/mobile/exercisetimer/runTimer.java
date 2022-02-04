@@ -1,6 +1,8 @@
 package com.mobile.exercisetimer;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -114,11 +116,13 @@ public class runTimer extends AppCompatActivity {
             }
         }.start();
         countdownButton.setText("PAUSE");
+        countdownButton.setBackgroundColor(Color.parseColor("#F44336"));
         timeRunning = true;
     }
     public void stopTimer(){
         countDownTimer.cancel();
         countdownButton.setText("RESUME");
+        countdownButton.setBackgroundColor(Color.parseColor("#2196F3"));
         timeRunning = false;
     }
 
@@ -185,7 +189,7 @@ public class runTimer extends AppCompatActivity {
                         exerciseStatus.setText("Break");
                     }
                     else if (set == 1){
-                        exerciseStatus.setText("Congratulations, Exercise Finished");
+                        exerciseStatus.setText("Finished");
                         countdownButton.setVisibility(View.INVISIBLE);
                         homeButton.setVisibility(View.VISIBLE);
                     }

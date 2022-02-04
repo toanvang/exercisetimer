@@ -70,8 +70,6 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private Button starttimer;
     static Dialog d;
 
-    List<ExampleItem> taskList;
-
     /**
      * round.getText().toString()
      * set.getText().toString()
@@ -365,6 +363,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             breaks.setVisibility(View.VISIBLE);
         }
     }
+
 
     private void displayTooltip(int position, int align) {
         toolTipsManager.findAndDismiss(setText);

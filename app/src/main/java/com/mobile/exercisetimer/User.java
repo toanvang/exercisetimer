@@ -30,9 +30,6 @@ public class User {
         this.historyExercise = new ArrayList<>();
         this.historyDate = new ArrayList<>();
         this.historyRest = new ArrayList<>();
-        historyDate.add("05/04/1994");
-        historyExercise.add("10 mins");
-        historyRest.add("5 mins");
 
     }
 
