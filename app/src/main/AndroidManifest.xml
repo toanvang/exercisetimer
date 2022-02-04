@@ -23,9 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignupActivity"/>
-        <activity android:name=".HistoryActivity"/>
-        <activity android:name=".LoginActivity"/>
+        <activity android:configChanges="orientation|screenSize" android:name=".SignupActivity"/>
+        <activity android:configChanges="orientation|screenSize" android:name=".HistoryActivity"/>
+        <activity android:configChanges="orientation|screenSize" android:name=".LoginActivity"/>
         <activity android:configChanges="orientation|screenSize" android:name=".workoutActivity" />
         <activity android:configChanges="orientation|screenSize" android:name=".runTimer"/>
         <activity android:configChanges="orientation|screenSize" android:name=".SettingActivity"/>
